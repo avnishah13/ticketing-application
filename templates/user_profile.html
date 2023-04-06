@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <style type="text/css">
+    form, h1, .form-group .form-control, .card, select{
+      text-align: center;
+    }
+
+    select{
+    text-indent: 50px;
+  }
+
+    .main {
+      max-width: 100%;
+      background-color: #343434;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    img{
+      border-radius: 50%;
+      width:150px;
+      height:150px
+    }
+
+    .card {
+      position: relative;
+    }
+
+    .card a::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+    }
+  </style>
+  
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/user/{{user['user_id']}}/home" style="font-size: 30px;">&nbsp;&nbsp;&nbsp;Ticketable</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a class="nav-link active" href="/user/{{user['user_id']}}/profile">Profile</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/">Logout</a>
+      </li>
+    </ul>
+  </div>
+
+<br><br>
+ <div class="pull-right">
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <form class="d-flex" action="/user/{{user['user_id']}}/search" method="POST">
+        <input class="form-control me-sm-2" type="search" id="search" name="search" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+      </form>
+    </div>
+  </div>
+</div>
+</nav>
+
+
+<div class="main"><br>
+  <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt="Avatar"><br>
+  <br><h2 style="color: white; text-align: center; font-size: 40px; font-weight: bold; ">{{user['name']}}</h2><br>
+    <form action="/user/{{user_id}}/profile/edit" method="GET" id="create-login-form">
+    <button type="submit" class="btn btn-secondary">Edit Profile</button>
+    </form><br>
+</div><br>
+
+<div>
+<div class="row">
+<h1 style="text-align: center;"> Your Bookings </h1><br><br><br>
+
+{% for item in list1 %}
+<div class="col-3">
+  <div class="card text-white bg-primary mb-3" style="max-width: 20rem; margin: auto; padding: 10px;">
+    <div class="card-header" style="color: white;">{{item[1]}}</div>
+      <div class="card-body">
+        <h4 class="card-title">{{item[0]}}</h4>
+        <p class="card-text">{{item[3]}}<br></p>
+        <p class="card-text">{{item[2]}}<br></p>
+
+        <form action="/user/{{user['user_id']}}/profile" method="POST" id="create-login-form">
+          <div class="form-group">
+            <label class="form-label mt-4">Rating</label>
+            {% if datetime.datetime.strptime(item[3],"%Y-%m-%d").strftime('%Y-%m-%d') < datetime.datetime.now().strftime('%Y-%m-%d') %}
+            <select class="form-select" id="rating" name="rating">
+            {% for i in range(1,6) %}
+                <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+            </select>
+            {% else %}
+            <select class="form-select" id="rating" name="rating" disabled>
+            {% for i in range(1,6) %}
+                <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+            </select>
+            {% endif %}
+            <input type="hidden" name="movie_title" value="{{item[0]}}">
+          </div><br>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="card text-center">
+  <div class="card-footer text-muted">
+    Contact Us: 21f1001736@ds.study.iitm.ac.in
+  </div>
+</div>
+
+</body>
+</html>

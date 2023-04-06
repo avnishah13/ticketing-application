@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Venue Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+
+  <style type="text/css">
+    td, th{
+      text-align: center;
+    }
+
+    td{
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/admin/home" style="font-size: 30px;">&nbsp;&nbsp;&nbsp;Ticketable</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/admin/Venue">Venue Management</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/show">Show Management</a>
+          </li>
+        </ul>
+      <div class="pull-right">
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav><br><br>
+
+<h1 style="text-align: center;">List of Venues</h1><br>
+
+<table class="table table-hover">
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">Sr. No.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Capacity</th>
+      <th scope="col">City</th>
+      <th scope="col">Image</th>
+      <th scope="col">Actions</th>
+    </tr>
+
+    {% for venue in venues %}
+    <tr>
+      <tr class="table-active">
+      <td scope="row">{{loop.index}}</td>
+      <td scope="row">{{venue['name']}}</td>
+      <td>{{venue['capacity']}}</td>
+      <td>{{venue['city']}}</td>
+      <td><img src="{{venue['image']}}" width=150 height=75></td>
+      <td>
+        <a href="/admin/venue/{{venue['venue_id']}}/edit" type="button">Edit</a>&nbsp;&nbsp;
+        <a href="/admin/venue/{{venue['venue_id']}}/remove" type="button">Remove</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table><br>
+
+<div class="d-grid gap-2">
+  <a href="venue/create" class="btn btn-primary btn-lg active" role="button">Create New Venue</a>
+</div><br>
+
+<div class="card text-center">
+  <div class="card-footer text-muted">
+    Contact Us: 21f1001736@ds.study.iitm.ac.in
+  </div>
+</div>
+</body>
+</html>
