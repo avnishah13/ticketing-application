@@ -1,0 +1,728 @@
+openapi: '3.0.2'
+info:
+  title: API Documentation for Ticket Show Application
+  description: >
+    RESTful API for a Ticket Show Application Ticketable.
+
+    <h3> Booking Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>booking_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>number_of_seats</td>
+        <td>Integer</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>timestamp</td>
+        <td>String</td>
+        <td></td>
+      </tr>      
+      <tr>
+        <td>user_id</td>
+        <td>Integer</td>
+        <td>Foreign Key (user.user_id), Not Null</td>
+      </tr>
+      <tr>
+        <td>show_id</td>
+        <td>Integer</td>
+        <td>Foreign Key (show.show_id), Not Null</td>
+      </tr>
+      <tr>
+        <td>seat_id</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+    </tbody>
+    </table>
+
+    <h3> City Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>Primary Key, Not Null, Unique</td>
+      </tr>
+      <tr>
+        <td>state</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>        
+    </tbody>
+    </table>
+
+    <h3> Movie Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>movie_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>description</td>
+        <td>String</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>duration</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>language</td>
+        <td>String</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>release_date</td>
+        <td>String</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>genre</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>poster</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>rating</td>
+        <td>String</td>
+        <td></td>
+      </tr>
+    </tbody>
+    </table>
+
+    <h3> Show Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>show_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>date</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>price</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>start_time</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>language</td>
+        <td>String</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>end_time</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>venue_id</td>
+        <td>String</td>
+        <td>Foreign Key (venue.venue_id), Not Null</td>
+      </tr>
+      <tr>
+        <td>movie</td>
+        <td>String</td>
+        <td>Foreign Key (movie.movie_id), Not Null</td>
+      </tr>
+    </tbody>
+    </table>
+
+    <h3> User Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>user_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>user_type</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>username</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>password</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>email</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>
+      <tr>
+        <td>phone</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>
+      <tr>
+        <td>city</td>
+        <td>String</td>
+        <td>Foreign Key (city.name)</td>
+      </tr>
+    </tbody>
+    </table>
+
+    <h3> Venue Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>venue_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>capacity</td>
+        <td>Integer</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>city</td>
+        <td>String</td>
+        <td>Foreign Key (city.name), Not Null</td>
+      </tr>
+      <tr>
+        <td>image</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+    </tbody>
+    </table>
+
+    <h3> Error Codes </h3> 
+    <table>
+      <thead>
+        <th>Resource</th>
+        <th>Error Code</th>
+        <th>Message</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Show</td>
+        <td>SHOW001</td>
+        <td>Date is required</td>
+      </tr>
+      <tr>
+        <td>Show</td>
+        <td>SHOW002</td>
+        <td>Price is required</td>
+      </tr>
+      <tr>
+        <td>Show</td>
+        <td>SHOW003</td>
+        <td>Start Time is required</td>
+      </tr>
+      <tr>
+        <td>Show</td>
+        <td>SHOW004</td>
+        <td>End Time is required</td>
+      </tr>
+      <tr>
+        <td>Show</td>
+        <td>SHOW005</td>
+        <td>Venue ID is required</td>
+      </tr>
+      <tr>
+        <td>Show</td>
+        <td>SHOW006</td>
+        <td>Movie ID is required</td>
+      </tr>
+      <tr>
+        <td>Show</td>
+        <td>SHOW007</td>
+        <td>Invalid Date</td>
+      </tr>
+      
+      <tr>
+        <td>Venue</td>
+        <td>VENUE001</td>
+        <td>Venue Name required</td>
+      </tr>
+      <tr>
+        <td>Venue</td>
+        <td>VENUE002</td>
+        <td>Capacity is required</td>
+      </tr>
+      
+      <tr>
+        <td>Venue</td>
+        <td>VENUE003</td>
+        <td>City is required</td>
+      </tr>
+      <tr>
+        <td>Venue</td>
+        <td>VENUE004</td>
+        <td>Image Link is required</td>
+      </tr>  
+    </tbody>
+    </table>
+  version: '1.0'
+servers:
+  - url: http://127.0.0.1:5000/
+paths:
+  /api/show/{show_id}:
+    description: End point to read, update and delete a show resource.
+    get:
+      description: Operation to read show resource.
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: show object
+                type: object
+                properties:
+                  show_id:
+                    type: integer
+                    example: 3
+                  date:
+                    type: string
+                    example: 2023-02-27
+                  price:
+                    type: integer
+                    example: 300
+                  start_time:
+                    type: string
+                    example: 10:30:00
+                  end_time:
+                    type: string
+                    example: 12:54:00
+                  venue_id:
+                    type: integer
+                    example: 1
+                  movie_id:
+                    type: integer
+                    example: 2
+
+        '500':
+          description: Internal Server Error
+        '404':
+          description: Show not found
+
+    put:
+      description: Operation to update the show resource.
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  example: 2023-02-27
+                price:
+                  type: integer
+                  example: 300
+                start_time:
+                  type: string
+                  example: 10:30:00
+                end_time:
+                  type: string
+                  example: 12:54:00
+                venue_id:
+                  type: integer
+                  example: 1
+                movie_id:
+                  type: integer
+                  example: 2
+      responses:
+        '200':
+          description: Successfuly updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  show_id:
+                    type: integer
+                    example: 3
+                  date:
+                    type: string
+                    example: 2023-02-27
+                  price:
+                    type: integer
+                    example: 300
+                  start_time:
+                    type: string
+                    example: 10:30:00
+                  end_time:
+                    type: string
+                    example: 12:54:00
+                  venue_id:
+                    type: integer
+                    example: 1
+                  movie_id:
+                    type: integer
+                    example: 2
+        '404':
+          description: Show not found
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+ 
+    delete:
+      description: Operation to delete the show resource
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: Successfully Deleted
+        '500':
+          description: Internal Server Error
+        '404':
+          description: Venue not found
+    
+  /api/show:
+    description: End point to create show resource
+    post:
+      description: Operation to create the show resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  example: 2023-02-27
+                price:
+                  type: integer
+                  example: 300
+                start_time:
+                  type: string
+                  example: 10:30:00
+                end_time:
+                  type: string
+                  example: 12:54:00
+                venue_id:
+                  type: integer
+                  example: 1
+                movie_id:
+                  type: integer
+                  example: 2
+      responses:
+        '201':
+          description: Successfully Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  show_id:
+                    type: integer
+                    example: 3
+                  date:
+                    type: string
+                    example: 2023-02-27
+                  price:
+                    type: integer
+                    example: 300
+                  start_time:
+                    type: string
+                    example: 10:30:00
+                  end_time:
+                    type: string
+                    example: 12:54:00
+                  venue_id:
+                    type: integer
+                    example: 1
+                  movie_id:
+                    type: integer
+                    example: 2
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+
+  /api/venue/{venue_id}:
+    description: End point to read, update and delete a venue resource.
+    get:
+      description: Operation to read venue resource.
+      parameters:
+        - in: path
+          name: venue_id
+          required: true
+          schema:
+            type: integer
+            example: 4
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: venue object
+                type: object
+                properties:
+                  venue_id:
+                    type: integer
+                    example: 4
+                  name:
+                    type: string
+                    example: PVR Cinemas Oberoi Mall
+                  capacity:
+                    type: integer
+                    example: 200
+                  city:
+                    type: string
+                    example: Mumbai
+                  image:
+                    type: string
+                    example: https://content.jdmagicbox.com/comp/mumbai/w9/022pxx22.xx22.171220062728.p7w9/catalogue/pvr-icon-cinemas-play-house-oberoi-mall--goregaon-east-mumbai-pvr-cinemas-1dpmdvkfhc.jpg?clr=
+
+        '500':
+          description: Internal Server Error
+        '404':
+          description: Venue not found
+
+    put:
+      description: Operation to update the venue resource.
+      parameters:
+        - in: path
+          name: venue_id
+          required: true
+          schema:
+            type: integer
+            example: 4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: PVR Cinemas Oberoi Mall
+                capacity:
+                  type: integer
+                  example: 200
+                city:
+                  type: string
+                  example: Mumbai
+                image:
+                  type: string
+                  example: https://content.jdmagicbox.com/comp/mumbai/w9/022pxx22.xx22.171220062728.p7w9/catalogue/pvr-icon-cinemas-play-house-oberoi-mall--goregaon-east-mumbai-pvr-cinemas-1dpmdvkfhc.jpg?clr=
+      responses:
+        '200':
+          description: Successfuly updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  venue_id:
+                    type: integer
+                    example: 4
+                  name:
+                    type: string
+                    example: PVR Cinemas Oberoi Mall
+                  capacity:
+                    type: integer
+                    example: 200
+                  city:
+                    type: string
+                    example: Mumbai
+                  image:
+                    type: string
+                    example: https://content.jdmagicbox.com/comp/mumbai/w9/022pxx22.xx22.171220062728.p7w9/catalogue/pvr-icon-cinemas-play-house-oberoi-mall--goregaon-east-mumbai-pvr-cinemas-1dpmdvkfhc.jpg?clr=
+        '404':
+          description: Venue not found
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+ 
+    delete:
+      description: Operation to delete the venue resource
+      parameters:
+        - in: path
+          name: venue_id
+          required: true
+          schema:
+            type: integer
+            example: 4
+      responses:
+        '200':
+          description: Successfully Deleted
+        '500':
+          description: Internal Server Error
+        '404':
+          description: Venue not found
+    
+  /api/venue:
+    description: End point to create venue resource
+    post:
+      description: Operation to create the venue resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: PVR Cinemas Oberoi Mall
+                capacity:
+                  type: integer
+                  example: 200
+                city:
+                  type: string
+                  example: Mumbai
+                image:
+                  type: string
+                  example: https://content.jdmagicbox.com/comp/mumbai/w9/022pxx22.xx22.171220062728.p7w9/catalogue/pvr-icon-cinemas-play-house-oberoi-mall--goregaon-east-mumbai-pvr-cinemas-1dpmdvkfhc.jpg?clr=
+      responses:
+        '201':
+          description: Successfully Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  venue_id:
+                    type: integer
+                    example: 4
+                  name:
+                    type: string
+                    example: PVR Cinemas Oberoi Mall
+                  capacity:
+                    type: integer
+                    example: 200
+                  city:
+                    type: string
+                    example: Mumbai
+                  image:
+                    type: string
+                    example: https://content.jdmagicbox.com/comp/mumbai/w9/022pxx22.xx22.171220062728.p7w9/catalogue/pvr-icon-cinemas-play-house-oberoi-mall--goregaon-east-mumbai-pvr-cinemas-1dpmdvkfhc.jpg?clr=
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
