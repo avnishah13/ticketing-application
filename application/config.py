@@ -16,6 +16,6 @@ class MailConfig():
     MAIL_SERVER='smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USERNAME = '21f1001736@ds.study.iitm.ac.in'
-    MAIL_PASSWORD = 'getcxxbabcyzhcjy'
+    MAIL_PASSWORD = ####
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
